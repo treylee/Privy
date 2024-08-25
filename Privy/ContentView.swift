@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authManager: AuthManager
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            switch authManager.authState {
+            case .unauthenticated:
+                AuthenticationRootView()
+            case .authenticated:
+                TempView()
+            }
         }
-        .padding()
     }
 }
 
